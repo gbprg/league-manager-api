@@ -13,13 +13,14 @@ Copie a **Internal Database URL**.
 | Campo | Valor |
 |---|---|
 | Build Command | `npm install && npm run build` |
-| Start Command | `npm run start:render` (roda as migrations e sobe a API) |
+| Root Directory | vazio, se o repositório for só da API; `league-manager-api` se for um repositório com as duas pastas |
+| Start Command | `npm run start:render` (migrations + admin + API) |
 
 Variáveis de ambiente:
 
 | Variável | Valor |
 |---|---|
-| `DATABASE_URL` | Internal Database URL do passo anterior |
+| `DATABASE_URL` | Internal Database URL do passo anterior (substitui `DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASSWORD` e `DB_NAME`) |
 | `DB_SSL` | `true` (apenas se usar a External URL) |
 | `NODE_ENV` | `production` |
 | `JWT_SECRET` | texto longo e aleatório (ex.: `openssl rand -hex 32`) |
@@ -28,11 +29,8 @@ Variáveis de ambiente:
 | `TRUST_PROXY` | `1` (o Render usa proxy; sem isso o limite de login vale para todos juntos) |
 | `ADMIN_NAME` / `ADMIN_EMAIL` / `ADMIN_PASSWORD` | dados do admin (use senha forte) |
 
-Depois do primeiro deploy, no **Shell** do serviço, crie o admin uma vez:
-
-```bash
-npm run seed:admin:prod
-```
+O `start:render` aplica as migrations e **cria o admin automaticamente** (com `ADMIN_*`; se já existir, não faz nada),
+então não precisa de Shell — o plano gratuito do Render não tem Shell/SSH.
 
 ### Frontend (Vercel, pasta `league-manager-web`)
 - Framework: Vite. O `vercel.json` já redireciona todas as rotas para o `index.html`.

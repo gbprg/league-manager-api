@@ -28,7 +28,7 @@
     "migration:generate": "typeorm-ts-node-esm -d src/database/data-source.ts migration:generate",
     "seed:admin": "tsx src/database/seed-admin.ts",
     "seed:admin:prod": "node dist/database/seed-admin.js",
-    "start:render": "npm run migration:run:prod && npm run prod"
+    "start:render": "npm run migration:run:prod && npm run seed:admin:prod && npm run prod"
   },
   "dependencies": {
     "@nestjs/common": "^12.0.1",
